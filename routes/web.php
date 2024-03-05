@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\GoogleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,3 +55,7 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+route::get('auth/google',[GoogleController::class,'googlepage']);
+
+route::get('auth/google/callback',[GoogleController::class,'googlecallback']);
