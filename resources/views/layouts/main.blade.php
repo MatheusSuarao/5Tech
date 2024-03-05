@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+@guest
+    <script>window.location = "{{ route('login') }}";</script>
+@endguest
+
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -7,9 +11,9 @@
         <title>@yield('title')</title>
 
         <!-- Fonte Google -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
 
         <!-- Bootstrap 5 -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
@@ -20,71 +24,53 @@
 
     </head>
     <body class="bg-light">
-        <header>
-            <nav class="navbar bg-dark fixed-top" data-bs-theme="dark" >
-                <div class="container-fluid">
-                  <a class="navbar-brand fs-4" href="#">Sistema</a>
-                  <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                    <div class="offcanvas-header">
-                      <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Sistema Soares</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                      <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 fs-4">
-                        <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Pedidos</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Cadastros
-                          </a>
-                          <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Clientes</a></li>
-                            <li><a class="dropdown-item" href="#">Fornecedores</a></li>
-                            <li>
-                              <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Estoque</a></li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="mx-3 my-4 fs-5">
-                      @auth
-                      <div style="display: flex;">
-                        <a class="nav-link px-2" >Olá {{Auth::user()->name}}</a>
-                        <form action="/logout" method="post">
-                          @csrf
-                          <a class="nav-link px-4" href="/logout" onclick="event.preventDefault();
-                            this.closest('form').submit();">
-                            Sair
+          <div class="container">
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+              <div class="col-md-3 mb-2 mb-md-0">
+                <span class="fs-3">5Tech</span>
+              </div>
+        
+              <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 fs-5">
+                <li><a href="#" class="nav-link px-2 text-secondary">Quem Somos</a></li>
+                <li><a href="#" class="nav-link px-2 text-secondary">Restaurantes e Mercados</a></li>
+              </ul>
+        
+
+              <div class="col-md-3 text-end">
+                @guest
+                  <a type="button" class="btn btn-outline-primary me-2" href="/login">Entrar</a>
+                  <a type="button" class="btn btn-primary" href="/register">Criar conta</a> 
+                @endguest
+                @auth
+                  <div class="dropdown text-start">
+                    <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                      Ola {{Auth::user()->name}}
+                    </a>
+                    <ul class="dropdown-menu text-small" style="">
+                      <li><a class="dropdown-item" href="/user/profile">Minha Conta</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li>
+                          <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                {{ __('Sair') }}
                           </a>
                         </form>
-                        
-                      </div>
-                      @endauth 
-                      @guest
-                        <div style="display: flex;">
-                          <a class="nav-link px-2" href="/login">Login</a>
-                          <a class="nav-link px-4" href="/register">Cadastrar</a>
-                        </div> 
-                      @endguest
-                    </div> 
+                      </li>
+                    </ul>
                   </div>
-                </div>
-              </nav>
-        </header>
+                @endauth
+
+              </div>
+            </header>
+          </div>
         <main class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
           @yield('content')
         </main>
         <footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary">
-            <h2>Soares Mangueiras &copy; 2024 </h2>
+            <h2>5Tech &copy; 2024 </h2>
         </footer>
     </body>
 </html>

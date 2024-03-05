@@ -1,5 +1,5 @@
 *{
-    font-family:'Kode Mono';
+    font-family:'figtree';
 }
 
 h1{
@@ -7,5 +7,5 @@ h1{
 }
 
 header{
-    margin-bottom:80px;
+    height: 100px;
 }
