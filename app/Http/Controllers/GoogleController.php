@@ -35,7 +35,7 @@ class GoogleController extends Controller
        
                 Auth::login($finduser);
       
-                return redirect()->intended('dashboard');
+                return redirect()->intended('/dashboard');
        
             }
 
@@ -51,7 +51,7 @@ class GoogleController extends Controller
       
                 Auth::login($newUser);
       
-                return redirect()->intended('dashboard');
+                return redirect()->intended('/dashboard');
             }
       
         } 

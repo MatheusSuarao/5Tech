@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>@yield('title')</title>
+        
 
         <!-- Fonte Google -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -26,6 +27,29 @@
 
     </head>
     <body class="bg-light">
+
+
+              <!-- Integracao Login Facebook -->
+              <script>
+                window.fbAsyncInit = function() {
+                  FB.init({
+                    appId      : '393683216698941',
+                    xfbml      : true,
+                    version    : 'v19.0'
+                  });
+                  FB.AppEvents.logPageView();
+                };
+              
+                (function(d, s, id){
+                   var js, fjs = d.getElementsByTagName(s)[0];
+                   if (d.getElementById(id)) {return;}
+                   js = d.createElement(s); js.id = id;
+                   js.src = "https://connect.facebook.net/en_US/sdk.js";
+                   fjs.parentNode.insertBefore(js, fjs);
+                 }(document, 'script', 'facebook-jssdk'));
+              </script>
+
+              
           <div class="container">
             <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
               <div class="col-md-3 mb-2 mb-md-0">

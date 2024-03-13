@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\FacebookController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,5 +58,9 @@ Route::middleware([
 });
 
 route::get('auth/google',[GoogleController::class,'googlepage']);
-
 route::get('auth/google/callback',[GoogleController::class,'googlecallback']);
+
+Route::get('auth/facebook', [FacebookController::class, 'redirectToFacebook']);
+Route::get('auth/facebook/callback', [FacebookController::class, 'handleFacebookCallback']);
+
+

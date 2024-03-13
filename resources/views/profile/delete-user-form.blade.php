@@ -9,7 +9,16 @@
 
     <x-slot name="content">
         <div class="max-w-xl text-sm text-gray-600">
-            {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
+            Instrução de exclusão de dados: <br>
+            
+            6tec é uma aplicação de login no Facebook e não guardamos os seus dados pessoais no nosso servidor. De acordo com a política do Facebook, devemos fornecer o URL do lembrete de exclusão de dados do usuário ou o URL da instrução de exclusão de dados. <br>
+            
+            Se deseja apagar as suas actividades para a aplicação 6Tec, pode apagar as suas informações seguindo estes passos:
+            
+            Vá para as configurações da sua conta do Facebook e privacidade. Clique em "Minha Conta".
+            Procure por "Deletar Conta" na parte inferior do menu.
+            Clique em "Deletar conta", depois de confirmar com sua senha todos os dados da sua conta serao excluidos.
+            Parabéns, você removeu com sucesso as atividades da sua inscrição.
         </div>
 
         <div class="mt-5">
