@@ -20,6 +20,11 @@
             </div>
 
             <div class="mt-4">
+                <x-label for="phone" value="{{ __('Telefone') }}" />
+                <x-input id="phoneInput" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" placeholder="(xx) xxxxx-xxxx" required autocomplete="phone" />
+            </div>
+
+            <div class="mt-4">
                 <x-label for="password" value="{{ __('Senha') }}" />
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
             </div>
@@ -58,3 +63,24 @@
         </form>
     </x-authentication-card>
 </x-guest-layout>
+<script>
+    $(document).ready(function() {
+        $('#phoneInput').on('input', function() {
+            var phoneNumber = $(this).val().replace(/\D/g, '');
+            var formattedPhoneNumber = '';
+    
+            if (phoneNumber.length > 0) {
+                formattedPhoneNumber = '(' + phoneNumber.substring(0, 2);
+                if (phoneNumber.length > 2) {
+                    formattedPhoneNumber += ') ' + phoneNumber.substring(2, 7);
+                    if (phoneNumber.length > 7) {
+                        formattedPhoneNumber += '-' + phoneNumber.substring(7, 11);
+                    }
+                }
+            }
+    
+            $(this).val(formattedPhoneNumber);
+        });
+    });
+    </script>
+    
