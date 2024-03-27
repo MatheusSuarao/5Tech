@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\RestaurantesController;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\FacebookController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,8 +16,6 @@ use App\Http\Controllers\FacebookController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', [EventController::class, 'index']);
 
 
 /*
@@ -37,30 +36,22 @@ Route::get('/testes/{id?}', function ($id = NULL) {
 */
 
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/', function () {
-        return view('rota');
-    })->name('rota');
-});
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+    Route::get('/', [EventController::class, 'index'])->name('rota');
+    Route::get('/restaurantes/lojas', [RestaurantesController::class, 'view'])->name('restaurantes.loja');
+    Route::get('/restaurantes/cadastro', [RestaurantesController::class, 'cadastro'])->name('restaurantes.cadastro');
+    Route::post('/restaurantes', [RestaurantesController::class, 'store'])->name('restaurantes.store');
+    Route::get('/{idproduto}/carrinho/adicionar', [EventController::class, 'adicionarCarrinho'])->name('adicionar_carrinho');
+    Route::get('/{indice}/excluircarrinho', [EventController::class, 'excluirCarrinho'])->name('carrinho_excluir');
+    Route::get('/carrinho', [EventController::class, 'verCarrinho'])->name('ver_carrinho');
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 });
 
-route::get('auth/google',[GoogleController::class,'googlepage']);
-route::get('auth/google/callback',[GoogleController::class,'googlecallback']);
+Route::get('auth/google',[GoogleController::class,'googlepage']);
+Route::get('auth/google/callback',[GoogleController::class,'googlecallback']);
 
 Route::get('auth/facebook', [FacebookController::class, 'redirectToFacebook']);
 Route::get('auth/facebook/callback', [FacebookController::class, 'handleFacebookCallback']);
-
 
