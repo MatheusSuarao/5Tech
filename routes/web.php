@@ -38,12 +38,21 @@ Route::get('/testes/{id?}', function ($id = NULL) {
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/', [EventController::class, 'index'])->name('rota');
+
     Route::get('/restaurantes/lojas', [RestaurantesController::class, 'view'])->name('restaurantes.loja');
     Route::get('/restaurantes/cadastro', [RestaurantesController::class, 'cadastro'])->name('restaurantes.cadastro');
     Route::post('/restaurantes', [RestaurantesController::class, 'store'])->name('restaurantes.store');
+
     Route::get('/{idproduto}/carrinho/adicionar', [EventController::class, 'adicionarCarrinho'])->name('adicionar_carrinho');
     Route::get('/{indice}/excluircarrinho', [EventController::class, 'excluirCarrinho'])->name('carrinho_excluir');
     Route::get('/carrinho', [EventController::class, 'verCarrinho'])->name('ver_carrinho');
+    Route::post('/carrinho/finalizar', [EventController::class, 'finalizar'])->name('carrinho_finalizar');
+
+    Route::match(['get', 'post'],'/compras/historico', [EventController::class, 'historico'])->name('hist_pedidos');
+
+    Route::match(['get', 'post'],'/compras/detalhes', [EventController::class, 'detalhes'])->name('detalhes_pedidos');
+
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');

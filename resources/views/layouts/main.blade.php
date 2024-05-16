@@ -20,15 +20,17 @@
         <!-- Bootstrap 5 -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-        
-        <!-- Css e JS interno -->
-        <link rel="stylesheet" href=".\css\styles.css">
-        <script src=".\js\js.js"></script>
+      
 
         <!-- CND Jquey mask -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-        
+
+        <!-- JS -->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+        @yield("scriptjs")
 
 
     </head>
@@ -91,6 +93,8 @@
                       Ola {{$firstName}}
                     </a>
                     <ul class="dropdown-menu text-small" style="">
+                      <li><a class="dropdown-item" href="{{route('hist_pedidos')}}">Meu Pedidos</a></li>
+                      <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item" href="/user/profile">Minha Conta</a></li>
                       <li><hr class="dropdown-divider"></li>
                       <li>

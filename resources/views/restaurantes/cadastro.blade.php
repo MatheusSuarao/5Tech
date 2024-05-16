@@ -5,11 +5,24 @@
 @section('content')
 
 
+
 <h1 class="text-2xl uppercase font-semibold text-gray-800 mb-6">{{ __('Cadastro de Restaurante') }}</h1>
+
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 
 <div class="container mx-auto">
     <div class="flex justify-center">
-        <form class="w-full" method="POST" action="{{ route('restaurantes.store') }}">
+        <form class="w-full" method="POST" action="{{ route('restaurantes.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-wrap -mx-3 mb-0">
                 <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
@@ -49,6 +62,12 @@
                         Email
                     </label>
                     <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="email" name="Email" :value="{{ old('Email') }}" type="email" placeholder="email@example.com">
+                </div>
+                <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                    <label class="block tracking-wide text-gray-700 text-base font-bold mb-2" for="email">
+                        Logo
+                    </label>
+                    <input type="file" name="image" id="foto">
                 </div>
             </div>
             <div class="flex flex-wrap -mx-3 mb-2">

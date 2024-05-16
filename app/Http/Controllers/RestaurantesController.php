@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Restaurantes;
-use App\Models\Endereco;
 
 class RestaurantesController extends Controller
 {
@@ -30,6 +29,17 @@ class RestaurantesController extends Controller
     public function store(Request $request)
     {
 
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+
+            $requestImage = $request->image;
+            $extension = $requestImage->extension();
+            $imageName = md5($requestImage->image->getClientOriginalName() . strtotime('now')) . '.' . $extension;
+            
+            $request->image->move(public_path('\img\produtos'), $imageName);
+
+
+        }
+
         
 
         try {
@@ -44,11 +54,6 @@ class RestaurantesController extends Controller
                 'Telefone' => $request->input('Telefone'),
                 'Email' => $request->input('Email'),
                 'Descricao' => $request->input('Descricao'),
-                
-            ]);
-
-            // Criação do endereço associado ao restaurante
-            $endereco = new Endereco([
                 'cep' => $request->input('cep'),
                 'logradouro' => $request->input('logradouro'),
                 'nmr_casa' => $request->input('nmr_casa'),
@@ -57,13 +62,14 @@ class RestaurantesController extends Controller
                 'referencia' => $request->input('referencia'),
                 'cidade' => $request->input('cidade'),
                 'estado' => $request->input('estado'),
-                'loja_id' => $restaurante->id
+                'logo' => $imageName,
+                
             ]);
+
 
             
 
             // Salva o endereço associado ao restaurante
-            $restaurante->endereco()->save($endereco);
 
             // Confirma a transação
             DB::commit();
@@ -74,7 +80,7 @@ class RestaurantesController extends Controller
             // Em caso de erro, reverte a transação
         
             // Retorna mensagem de erro
-            return redirect()->back()->with('error', 'Erro ao cadastrar restaurante: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Erro ao cadastrar restaurante: ');
         }
     }
 

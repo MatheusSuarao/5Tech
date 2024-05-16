@@ -16,8 +16,15 @@ class CreateRestaurantesTable extends Migration
             $table->string('Telefone');
             $table->string('Email');
             $table->text('Descricao')->nullable();
-            $table->integer("idEndereco")->unsigned()->nullable();
-            $table->foreign('idEndereco')->references('id')->on('enderecos');
+            $table->string('cep');
+            $table->string('logradouro');
+            $table->string('nmr_casa');
+            $table->string('bairro');
+            $table->string('complemento')->nullable();
+            $table->string('referencia')->nullable();
+            $table->string('cidade');
+            $table->string('estado');
+            $table->string('logo');
             $table->timestamps();
         });
     }
