@@ -30,11 +30,16 @@
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+        
         @yield("scriptjs")
+
+       
 
 
     </head>
-    <body class="bg-light">
+    <body style="background-color: #e5e7eb">
 
 
               <!-- Integracao Login Facebook -->
@@ -57,7 +62,7 @@
                  }(document, 'script', 'facebook-jssdk'));
               </script>
               
-          <div class="container">
+          <div class="bg-light">
             <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
               <div class="col-md-3 mb-2 mb-md-0">
                 <span class="fs-3">5Tech</span>

@@ -9,8 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Pedido;
 use App\Models\ItensPedido;
-
-
+use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller{
     public function index(){
@@ -128,11 +127,53 @@ class EventController extends Controller{
         return view('compras/detalhes', $data);
     }
 
+  
+    // Função relatorios com organização por tipo de relatório
+    public function relatorios(Request $request) {
+        $data = [];
     
+        $listaPedidos = Pedido::all();
+        $listaProdutos = Produtos::all('id','nome');
 
+        // Group items by product ID and count occurrences
+        $itensAgrupados = ItensPedido::select('produto_id', DB::raw('count(*) as quantidade'))
+        ->groupBy('produto_id')
+        ->orderBy('quantidade', 'desc') // Order by quantity in descending order
+        ->get();
 
+        // Prepare the data array
+        $data['produtosNomes'] = [];
+        $data['produtosQuantidades'] = [];
+        foreach ($itensAgrupados as $itemAgrupado) {
+            $produto = $listaProdutos->find($itemAgrupado->produto_id); // Find the corresponding product
+            if ($produto) {
+                $data['produtosNomes'][] = $produto->nome;
+                $data['produtosQuantidades'][] = $itemAgrupado->quantidade;
+            }
+        }
 
+          
+    
+        // Agrupar pedidos por dia da semana
+        $dataAgrupada = [];
+        foreach ($listaPedidos as $pedido) {
+            $diaSemana = date('w', strtotime($pedido->datapedido)); // Obter dia da semana (0-6)
+            $dataAgrupada[$diaSemana][] = $pedido;
+        }
+    
+        // Contar pedidos por dia da semana
+        $quantidadePedidosPorDia = [];
+        for ($i = 0; $i < 7; $i++) { // Loop para cada dia da semana (0-6)
+            $quantidadePedidosPorDia[$i] = count($dataAgrupada[$i] ?? []); // Contar pedidos por dia
+        }
 
+        $data['pedidos'] = $quantidadePedidosPorDia;
+        $data['lista'] = $listaPedidos;
+        $data['produtos'] = $listaProdutos;
+       
+        return view('relatorios', $data);
+
+    }
 
 
 }

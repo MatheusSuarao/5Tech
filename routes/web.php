@@ -49,8 +49,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::post('/carrinho/finalizar', [EventController::class, 'finalizar'])->name('carrinho_finalizar');
 
     Route::match(['get', 'post'],'/compras/historico', [EventController::class, 'historico'])->name('hist_pedidos');
-
     Route::match(['get', 'post'],'/compras/detalhes', [EventController::class, 'detalhes'])->name('detalhes_pedidos');
+
+    Route::match(['get', 'post'],'/relatorios', [EventController::class, 'relatorios'])->name('relatorios');
 
 
     Route::get('/dashboard', function () {
